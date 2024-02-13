@@ -14,9 +14,9 @@ const pool = mysql.createPool({
 }).promise();                    // indica que se desea utilizar el soporte de promesas de mysql2, permitiendo el uso de async/await para manejar las consultas de manera más concisa.
 
 //funcion asincrone de obtener todas las notas
-export async function getNotes() {
+export async function getUsers() {
     //Se está ejecutando una consulta SQL para seleccionar todos los registros de la tabla notes. La función query del objeto pool se utiliza para realizar consultas a la base de datos. Dado que se utilizó .promise() al crear el pool, se puede utilizar await para esperar a que la consulta se complete.
-    const [rows] = await pool.query('SELECT * FROM notes') 
+    const [rows] = await pool.query('SELECT * FROM users') 
     return rows
 }
 

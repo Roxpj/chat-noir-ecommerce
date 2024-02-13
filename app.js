@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { getNotes, getNote, createNote } from './database.js'; //importo las funciones de database
+import { getUsers, getNote, createNote } from './database.js'; //importo las funciones de database
 
 const app = express();
 
@@ -8,13 +8,13 @@ app.use(express.json())
 // app.use(express.urlencoded({ extended   : true }  ) ) otra forma de hacerlo
 
 //aqui le digo que llame a la tabla de notes, todos los items
-app.get("/notes", async (req, res) => {
-    const notes = await getNotes()
-    res.send(notes)
+app.get("/users", async (req, res) => {
+    const users = await getUsers()
+    res.send(users)
 })
 
 //aqui le digo que llame a un solo item
-app.get("/notes/:id", async (req, res) => {
+app.get("/users/:id", async (req, res) => {
     const id = req.params.id
     const note = await getNote(id)
     res.send(note)
