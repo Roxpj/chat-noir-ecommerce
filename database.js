@@ -13,29 +13,31 @@ const pool = mysql.createPool({
     database: process.env.MYSQL_DATABASE    //la base de datos que quiero usar
 }).promise();                    // indica que se desea utilizar el soporte de promesas de mysql2, permitiendo el uso de async/await para manejar las consultas de manera más concisa.
 
-//funcion asincrone de obtener todas las notas
+//funcion para OBTENER todos los elementos de la base de datos
 export async function getUsers() {
     //Se está ejecutando una consulta SQL para seleccionar todos los registros de la tabla notes. La función query del objeto pool se utiliza para realizar consultas a la base de datos. Dado que se utilizó .promise() al crear el pool, se puede utilizar await para esperar a que la consulta se complete.
     const [rows] = await pool.query('SELECT * FROM users') 
     return rows
 }
 
-//funcion asincrone de obtener una nota
+//funcion para OBTENER un usuario
 export async function getUser(id) {
     const [rows] = await pool.query('SELECT * FROM users WHERE id = ?', [id]) 
     return rows[0]
 }
 
-//funcion para reventar elementos
+//funcion para ELIMINAR elementos
 export async function deleteUser(id) {
     const [rows] = await pool.query('DELETE FROM users WHERE id = ?', [id])
-    return rows[0]
+    console.log("Deleted User")
+    return getUsers() 
 }
 
-//funcion para crear notas, observa la sintaxis y percatate que la funcion inserta los datos en las respectivas columnas de la tabla
+//funcion para CREAR usuarios
 export async function createUser(user_name, user_email, user_password, rol, is_active) {
     const [result] = await pool.query('INSERT INTO users (user_name, user_email, user_password, rol, is_active) VALUES (?, ?, ?, ?, ?)', [user_name, user_email, user_password, rol, is_active])
     const id = result.insertId
+    console.log("Added User")
     return getUser(id)
 }
 
