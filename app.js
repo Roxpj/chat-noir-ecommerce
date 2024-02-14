@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { getUsers, getUser, createNote } from './database.js'; //importo las funciones de database
+import { getUsers, getUser, createUser } from './database.js'; //importo las funciones de database
 
 const app = express();
 
@@ -21,10 +21,10 @@ app.get("/users/:id", async (req, res) => {
 })
 
 //enviar notes al servidor post
-app.post("/notes", async (req, res) => {
-    const { title, contents } = req.body
-    const note = await createNote(title, contents)
-    res.status(201).send(note)
+app.post("/users", async (req, res) => {
+    const { user_name, user_email, user_password, rol, is_active } = req.body
+    const user = await createUser(user_name, user_email, user_password, rol, is_active)
+    res.status(201).send(user)
 })
 
 //mensaje de que sea error

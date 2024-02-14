@@ -27,10 +27,10 @@ export async function getUser(id) {
 }
 
 //funcion para crear notas, observa la sintaxis y percatate que la funcion inserta los datos en las respectivas columnas de la tabla
-export async function createNote(title, contents) {
-    const [result] = await pool.query('INSERT INTO notes (title, contents) VALUES (?, ?)', [title, contents])
+export async function createUser(user_name, user_email, user_password, rol, is_active) {
+    const [result] = await pool.query('INSERT INTO users (user_name, user_email, user_password, rol, is_active) VALUES (?, ?, ?, ?, ?)', [user_name, user_email, user_password, rol, is_active])
     const id = result.insertId
-    return getNote(id)
+    return getUser(id)
 }
 
 //const note = await getNote(3)                  //guardo en variable el resultado de haber llamado la funcion
