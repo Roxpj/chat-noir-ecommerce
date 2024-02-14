@@ -1,6 +1,6 @@
 import express from 'express';
 
-import { getUsers, getUser, createUser } from './database.js'; //importo las funciones de database
+import { getUsers, getUser, createUser, deleteUser } from './database.js'; //importo las funciones de database
 
 const app = express();
 
@@ -25,6 +25,13 @@ app.post("/users", async (req, res) => {
     const { user_name, user_email, user_password, rol, is_active } = req.body
     const user = await createUser(user_name, user_email, user_password, rol, is_active)
     res.status(201).send(user)
+})
+
+//reventar elemento
+app.delete("/users/:id", async (req, res) => {
+    const id = req.params.id
+    const user = await deleteUser(id)
+    res.send(user)
 })
 
 //mensaje de que sea error

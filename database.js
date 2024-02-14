@@ -26,6 +26,12 @@ export async function getUser(id) {
     return rows[0]
 }
 
+//funcion para reventar elementos
+export async function deleteUser(id) {
+    const [rows] = await pool.query('DELETE FROM users WHERE id = ?', [id])
+    return rows[0]
+}
+
 //funcion para crear notas, observa la sintaxis y percatate que la funcion inserta los datos en las respectivas columnas de la tabla
 export async function createUser(user_name, user_email, user_password, rol, is_active) {
     const [result] = await pool.query('INSERT INTO users (user_name, user_email, user_password, rol, is_active) VALUES (?, ?, ?, ?, ?)', [user_name, user_email, user_password, rol, is_active])
