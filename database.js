@@ -21,8 +21,8 @@ export async function getUsers() {
 }
 
 //funcion asincrone de obtener una nota
-export async function getNote(id) {
-    const [rows] = await pool.query('SELECT * FROM notes WHERE id = ?', [id]) 
+export async function getUser(id) {
+    const [rows] = await pool.query('SELECT * FROM users WHERE id = ?', [id]) 
     return rows[0]
 }
 

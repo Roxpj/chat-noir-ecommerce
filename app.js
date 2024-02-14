@@ -1,23 +1,23 @@
 import express from 'express';
 
-import { getUsers, getNote, createNote } from './database.js'; //importo las funciones de database
+import { getUsers, getUser, createNote } from './database.js'; //importo las funciones de database
 
 const app = express();
 
 app.use(express.json())
 // app.use(express.urlencoded({ extended   : true }  ) ) otra forma de hacerlo
 
-//aqui le digo que llame a la tabla de notes, todos los items
+//aqui le digo que llame a la tabla de users, todos los items
 app.get("/users", async (req, res) => {
     const users = await getUsers()
     res.send(users)
 })
 
-//aqui le digo que llame a un solo item
+//aqui le digo que llame a un solo item de los usuarios
 app.get("/users/:id", async (req, res) => {
     const id = req.params.id
-    const note = await getNote(id)
-    res.send(note)
+    const user = await getUser(id)
+    res.send(user)
 })
 
 //enviar notes al servidor post
