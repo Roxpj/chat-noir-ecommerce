@@ -39,6 +39,14 @@ export async function createUser(user_name, user_email, user_password, rol, is_a
     return getUser(id)
 }
 
+//
+//
+//
+//NOS FALTA LA FUNCION PARA ACTUALIZAR LOS DATOS DEL USUARIO
+//
+//
+//
+
 //const note = await getNote(3)                  //guardo en variable el resultado de haber llamado la funcion
 //const result = await createNote('test','test')  //con esta funcion creo otro objeto en el servidor
 //console.log(note);    //la uso
