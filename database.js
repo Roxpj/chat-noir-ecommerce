@@ -14,6 +14,11 @@ const pool = mysql.createPool({
 }).promise();                    // indica que se desea utilizar el soporte de promesas de mysql2, permitiendo el uso de async/await para manejar las consultas de manera más concisa.
 
 
+//
+//--------------------------------
+//MECANICA PARA LA TABLA USUARIOS
+//--------------------------------
+//
 //funcion para OBTENER todos los elementos de la base de datos
 export async function getUsers() {
     //Se está ejecutando una consulta SQL para seleccionar todos los registros de la tabla notes. La función query del objeto pool se utiliza para realizar consultas a la base de datos. Dado que se utilizó .promise() al crear el pool, se puede utilizar await para esperar a que la consulta se complete.
@@ -81,6 +86,40 @@ export async function modifyProduct(product_name, product_description, product_c
     return getProducts(id)
 }
 
+//
+//--------------------------------
+//MECANICA PARA LA TABLA CATEGORIAS
+//--------------------------------
+//
+export async function getCategories() {
+    const [rows] = await pool.query('SELECT * FROM categories') 
+    return rows
+}
+//funcion para OBTENER un category
+export async function getCategory(id) {
+    const [rows] = await pool.query('SELECT * FROM categories WHERE id = ?', [id]) 
+    return rows[0]
+}
+//funcion para ELIMINAR elemento
+export async function deleteCategory(id) {
+    const [rows] = await pool.query('DELETE FROM categories WHERE id = ?', [id])
+    console.log("Deleted category")
+    return getCategories() 
+}
+//funcion para CREAR producto
+export async function createCategory(category_name, state) {
+    const [result] = await pool.query('INSERT INTO categories (category_name, state) VALUES (?, ?)', [category_name, state])
+    const id = result.insertId
+    console.log("Added category")
+    return getCategory(id)
+}
+//funcion para actualizar usuarios
+export async function modifyCategory(category_name, state, id) {
+    const [result] = await pool.query(`UPDATE categories SET category_name = ?, state = ? WHERE id = ?`, [category_name, state, id]);
+    id = result.insertId
+    console.log("Modified Category")
+    return getCategories(id)
+}
 
 
 //const note = await getNote(3)                  //guardo en variable el resultado de haber llamado la funcion
