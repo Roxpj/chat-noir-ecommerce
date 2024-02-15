@@ -38,14 +38,50 @@ export async function createUser(user_name, user_email, user_password, rol, is_a
     console.log("Added User")
     return getUser(id)
 }
+//funcion para actualizar usuarios
+export async function modifyUser(user_name, user_email, user_password, is_active, id) {
+    const [result] = await pool.query(`UPDATE users SET user_name = ?, user_email = ?, user_password = ?, is_active = ? WHERE id = ?`, [user_name, user_email, user_password, is_active, id]);
+    id = result.insertId
+    console.log("mODIFIED User")
+    return getUser(id)
+}
 
 //
+//--------------------------------
+//MECANICA PARA LA TABLA PRODUCTOS
+//--------------------------------
 //
-//
-//NOS FALTA LA FUNCION PARA ACTUALIZAR LOS DATOS DEL USUARIO
-//
-//
-//
+export async function getProducts() {
+    const [rows] = await pool.query('SELECT * FROM products') 
+    return rows
+}
+//funcion para OBTENER un usuario
+export async function getProduct(id) {
+    const [rows] = await pool.query('SELECT * FROM products WHERE id = ?', [id]) 
+    return rows[0]
+}
+//funcion para ELIMINAR elementos
+export async function deleteProduct(id) {
+    const [rows] = await pool.query('DELETE FROM products WHERE id = ?', [id])
+    console.log("Deleted Product")
+    return getProducts() 
+}
+//funcion para CREAR producto
+export async function createProduct(product_name, product_description, product_category, product_price, product_stock, creation_date, state) {
+    const [result] = await pool.query('INSERT INTO products (product_name, product_description, product_category, product_price, product_stock, creation_date, state) VALUES (?, ?, ?, ?, ?, ?, ?)', [product_name, product_description, product_category, product_price, product_stock, creation_date, state])
+    const id = result.insertId
+    console.log("Added product")
+    return getProducts(id)
+}
+//funcion para actualizar usuarios
+export async function modifyProduct(product_name, product_description, product_category, product_price, product_stock, state, id) {
+    const [result] = await pool.query(`UPDATE products SET product_name = ?, product_description = ?, product_category = ?, product_price = ?, product_stock = ?, state = ? WHERE id = ?`, [product_name, product_description, product_category, product_price, product_stock, state, id]);
+    id = result.insertId
+    console.log("Modified product")
+    return getProducts(id)
+}
+
+
 
 //const note = await getNote(3)                  //guardo en variable el resultado de haber llamado la funcion
 //const result = await createNote('test','test')  //con esta funcion creo otro objeto en el servidor
