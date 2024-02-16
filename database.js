@@ -17,6 +17,7 @@ const pool = mysql.createPool({
 //MECANICA PARA LA TABLA USUARIOS
 //--------------------------------
 //
+/*
 export async function getUsers() {
     const [rows] = await pool.query('SELECT * FROM users') 
     return rows
@@ -46,12 +47,14 @@ export async function modifyUser(user_name, user_email, user_password, is_active
     console.log("mODIFIED User")
     return getUser(id)
 }
+*/
 
 //
 //--------------------------------
 //MECANICA PARA LA TABLA PRODUCTOS
 //--------------------------------
 //
+/*
 export async function getProducts() {
     const [rows] = await pool.query('SELECT * FROM products') 
     return rows
@@ -116,4 +119,5 @@ export async function modifyCategory(category_name, state, id) {
     console.log("Modified Category")
     return getCategories(id)
 }
-
+*/
+export default pool;

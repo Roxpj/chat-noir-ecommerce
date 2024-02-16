@@ -1,11 +1,16 @@
 import express from 'express';
+//import  pool  from './database.js';
+import userRouter from './routes/userRouter.js';
+import productRouter from './routes/productsRouter.js';
+import categoryRouter from './routes/categoryRouter.js';
 
-import {getUsers, getUser, createUser, deleteUser, modifyUser} from './database.js';
+//import {getUsers, getUser, createUser, deleteUser, modifyUser} from './database.js';
 
+/*
 import {getProducts, getProduct, deleteProduct, createProduct, modifyProduct} from './database.js';
 
 import { getCategories, getCategory, deleteCategory, createCategory, modifyCategory } from './database.js';
-
+*/
 const app = express();
 app.use(express.json())
 
@@ -15,6 +20,7 @@ app.use(express.json())
 //
 //
 //aqui le digo que llame a la tabla de users, "get" de todos los items
+/*
 app.get("/users", async (req, res) => {
     const users = await getUsers()
     res.send(users)
@@ -44,12 +50,14 @@ app.patch("/users/:id", async (req, res) => {
     const user = await modifyUser(user_name, user_email, user_password, is_active, id)
     res.send(user)
 })
+*/
 
 //
 //
 //MECANICA PARA PRODUCTOS
 //
 //
+/*
 app.get("/products", async (req, res) => {
     const products = await getProducts()
     res.send(products)
@@ -79,6 +87,7 @@ app.patch("/products/:id", async (req, res) => {
     const products = await modifyProduct(product_name, product_description, product_category, product_price, product_stock, state, id)
     res.send(products)
 })
+
 
 //
 //
@@ -114,13 +123,12 @@ app.patch("/categories/:id", async (req, res) => {
     const category = await modifyCategory(category_name, state, id)
     res.send(category)
 })
-
+*/
 
 //mensaje de que sea error
-app.use(function(err, req, res, next) {
-    console.error(err.stack);
-    res.status(500).send('Something broke !!!');
-});
+app.use("/users/", userRouter);
+app.use("/products/", productRouter);
+app.use("/categories/", categoryRouter);
 //mensaje de que el servidor esta activo
 //en esta parte podria externalizar e numero del puerto como una variable externa en el archivo .env
 app.listen(8080, () => {
