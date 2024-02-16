@@ -30,6 +30,13 @@ const productModel = {
         id = result.insertId
         console.log("Modified product")
         return productModel.getProducts(id)
+    }, 
+
+    modifyStock: async (product_stock, state, id) => {
+        const [result] = await pool.query(`UPDATE products SET product_stock = ?, state = ? WHERE id = ?`, [product_stock, state, id]);
+        id = result.insertId
+        console.log("Modified stock")
+        return productModel.getProducts(id)
     } 
 } 
 

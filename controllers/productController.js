@@ -52,6 +52,19 @@ const productController = {
         }
     },
 
+    modifyStock: async (req, res) => {
+        try {
+            const id = req.params.id
+            const { product_stock, state } = req.body
+            const products = await productModel.modifyStock(product_stock, state, id)
+            res.send(products)
+        }catch (e) {
+            console.error(e);
+        }
+    },
+
+
+
 }
 
 export default productController;
