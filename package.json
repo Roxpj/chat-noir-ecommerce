@@ -13,6 +13,8 @@
   "dependencies": {
     "dotenv": "^16.4.2",
     "express": "^5.0.0-alpha.2",
+    "express-session": "^1.18.0",
+    "i": "^0.3.7",
     "mysql2": "^3.9.1"
   },
   "devDependencies": {
