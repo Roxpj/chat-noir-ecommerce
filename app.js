@@ -22,25 +22,8 @@ app.use(session(
         saveUninitialized: false
     }
 ));
-//--------------------------------
-// AREA EN REVISION
-//--------------------------------
-/*
-app.post('/login', async (req, res) => {
-    try {
-      const user = await authenticateUser(req.body.user_name, req.body.user_password);
-      if (user) {
-        req.session.user = user;
-        res.redirect('/');
-      } else {
-        res.redirect('/login');
-      }
-    } catch (err) {
-      console.error(err);
-      res.status(500).send('Error interno del servidor');
-    }
-  });
-*/
+
+//inicio de sesion/login
 app.get('/login', async (req, res) => {
     try {
       const user = await authenticateUser(req.body.user_name, req.body.user_password);
@@ -55,18 +38,7 @@ app.get('/login', async (req, res) => {
       res.status(500).send('Error interno del servidor');
     }
   });
-//--------------------------------
-// AREA EN REVISION
-//--------------------------------
-/*
-app.get('/perfil', (req, res) => {
-    if(req.session.user){
-        res.send('bienvenido' + req.session.user.user_name);
-    }else{
-        res.status(401).send('accesso no autorizado')
-    }
-})
-*/
+
 app.get('/perfil', (req, res) => {
     if(req.session.user){
         res.send('Bienvenido ' + req.session.user.user_name);
@@ -74,9 +46,7 @@ app.get('/perfil', (req, res) => {
         res.status(401).send('Acceso no autorizado');
     }
 });
-//--------------------------------
-// AREA EN REVISION
-//--------------------------------
+
 app.get("/logout/", (req, res) => {
     req.session.destroy(err => {
         if(err){
@@ -87,8 +57,6 @@ app.get("/logout/", (req, res) => {
     })
 })
 //---------------
-
-
 
 app.listen(8080, () => {
     console.log('Server is running on port 8080')
